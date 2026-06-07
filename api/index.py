@@ -10,8 +10,8 @@ PINECONE_API_KEY = "pcsk_5AFGyi_8smSXXmwMQPgiPxs7QMRMGPccCSuBivF6TvKkQSgMfRckF3D
 PINECONE_INDEX_NAME = "medium-rag"
 
 # אתחול הלקוחות
-client = OpenAI(api_key=LLMOD_API_KEY, base_url=LLMOD_BASE_URL)
-pc = Pinecone(api_key=PINECONE_API_KEY)
+# אתחול פשוט יותר של הלקוח
+client = OpenAI(api_key=LLMOD_API_KEY, base_url=LLMOD_BASE_URL)pc = Pinecone(api_key=PINECONE_API_KEY)
 
 app = FastAPI()
 

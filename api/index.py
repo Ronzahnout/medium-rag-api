@@ -3,15 +3,14 @@ from openai import OpenAI
 from pinecone import Pinecone
 
 # הגדרות המערכת
-# הנה המפתחות שלך מוזנים ישירות כדי ש-Vercel לא יפספס אותם
 LLMOD_API_KEY = "sk-PWmw-YZaLnQ77n1RsZEKkQ"
 LLMOD_BASE_URL = "https://api.llmod.ai/v1"
 PINECONE_API_KEY = "pcsk_5AFGyi_8smSXXmwMQPgiPxs7QMRMGPccCSuBivF6TvKkQSgMfRckF3DXFK2ho65ZunRoha"
 PINECONE_INDEX_NAME = "medium-rag"
 
-# אתחול הלקוחות
-# אתחול פשוט יותר של הלקוח
-client = OpenAI(api_key=LLMOD_API_KEY, base_url=LLMOD_BASE_URL)pc = Pinecone(api_key=PINECONE_API_KEY)
+# אתחול הלקוחות - שים לב לירידת השורה כאן!
+client = OpenAI(api_key=LLMOD_API_KEY, base_url=LLMOD_BASE_URL)
+pc = Pinecone(api_key=PINECONE_API_KEY)
 
 app = FastAPI()
 

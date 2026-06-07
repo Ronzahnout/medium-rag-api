@@ -18,10 +18,18 @@ async def get_stats():
     try:
         index = pc.Index(PINECONE_INDEX_NAME)
         stats = index.describe_index_stats()
-        return {"status": "success", "stats": dict(stats)}
+        
+        # התיקון: שולפים את הנתונים ישירות במקום להשתמש ב-dict()
+        return {
+            "status": "success", 
+            "stats": {
+                "dimension": stats.dimension,
+                "total_vector_count": stats.total_vector_count
+            }
+        }
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
 @app.get("/")
 async def root():
-    return {"message": "Server is running"}
+    return {"message": "Server is running"} 

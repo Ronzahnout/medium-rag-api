@@ -16,12 +16,10 @@ app = FastAPI()
 @app.get("/api/stats")
 async def get_stats():
     try:
-        indexes = pc.list_indexes()
-        return {
-            "status": "debug",
-            "available_indexes": str(indexes),
-            "looking_for": PINECONE_INDEX_NAME
-        }
+        host = "medium-rag-wxbeacn.svc.aped-4627-b74a.pinecone.io"
+        index = pc.Index(PINECONE_INDEX_NAME, host=host)
+        stats = index.describe_index_stats()
+        return {"status": "success", "stats": dict(stats)}
     except Exception as e:
         return {"status": "error", "message": str(e)}
 

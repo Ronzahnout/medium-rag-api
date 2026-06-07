@@ -16,7 +16,7 @@ app = FastAPI()
 @app.get("/api/stats")
 async def get_stats():
     try:
-        index = pc.Index(host="medium-rag-wxbeacn.svc.aped-4627-b74a.pinecone.io")
+        index = pc.Index(PINECONE_INDEX_NAME)
         stats = index.describe_index_stats()
         return {"status": "success", "stats": dict(stats)}
     except Exception as e:
@@ -24,4 +24,4 @@ async def get_stats():
 
 @app.get("/")
 async def root():
-    return {"message": "Server is running"} 
+    return {"message": "Server is running"}

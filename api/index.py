@@ -1,5 +1,6 @@
 import os
 from fastapi import FastAPI
+from pydantic import BaseModel
 from openai import OpenAI
 from pinecone import Pinecone
 
@@ -8,28 +9,18 @@ LLMOD_BASE_URL = os.environ.get("LLMOD_BASE_URL", "https://api.llmod.ai/v1")
 PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY", "pcsk_5AFGyi_8smSXXmwMQPgiPxs7QMRMGPccCSuBivF6TvKkQSgMfRckF3DXFK2ho65ZunRoha")
 PINECONE_INDEX_NAME = os.environ.get("PINECONE_INDEX_NAME", "medium-rag")
 
-client = OpenAI(api_key=LLMOD_API_KEY, base_url=LLMOD_BASE_URL)
-pc = Pinecone(api_key=PINECONE_API_KEY)
-
 app = FastAPI()
 
+# נתיב הסטטיסטיקות לפי דרישות המטלה
 @app.get("/api/stats")
 async def get_stats():
-    try:
-        index = pc.Index(PINECONE_INDEX_NAME)
-        stats = index.describe_index_stats()
-        
-        # התיקון: שולפים את הנתונים ישירות במקום להשתמש ב-dict()
-        return {
-            "status": "success", 
-            "stats": {
-                "dimension": stats.dimension,
-                "total_vector_count": stats.total_vector_count
-            }
-        }
-    except Exception as e:
-        return {"status": "error", "message": str(e)}
+    # מחזיר בדיוק את הפורמט הנדרש במסמך ההוראות
+    return {
+        "chunk_size": 800,
+        "overlap_ratio": 0.2,
+        "top_k": 3 # בחרנו 3 מכיוון שהמטלה דורשת לעיתים לשלוף עד 3 מאמרים
+    }
 
 @app.get("/")
 async def root():
-    return {"message": "Server is running"} 
+    return {"message": "Server is running"}
